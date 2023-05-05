@@ -1,5 +1,5 @@
 const apiKey = require('./config.js');
-const apiUrl = `https://content.guardianapis.com/search?api-key=${apiKey}`;
+const apiUrl = `https://content.guardianapis.com/search?api-key=${apiKey}&show-fields=thumbnail`;
 
 class NewsClient {
   async loadData() {
@@ -9,11 +9,13 @@ class NewsClient {
         throw new Error(`API request failed with status code ${response.status}`);
       }
       const data = await response.json();
-      return data;
+      console.log(data);
+      return data
     } catch (error) {
       throw new Error(`Error loading data from API: ${error.message}`);
     }
   }
 }
+
 
 module.exports = NewsClient;

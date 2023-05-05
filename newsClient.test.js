@@ -12,13 +12,15 @@ describe('NewsClient', () => {
     const client = new NewsClient();
 
     fetch.mockResponseOnce(JSON.stringify({
-      type: "article",
-      sectionName: "Film"
+      webTitle: "County cricket",
+      webUrl: "https://www.theguardian.com/sport/live/2023",
+      thumbnail: "img.jpg"
     }));
 
     const result = await client.loadData();
-    expect(result.type).toBe("article");
-    expect(result.sectionName).toBe("Film");
+    expect(result.webTitle).toBe("County cricket");
+    expect(result.webUrl).toBe("https://www.theguardian.com/sport/live/2023");
+    expect(result.thumbnail).toBe("img.jpg");
   });
 
   it('handles errors from API', async () => {
