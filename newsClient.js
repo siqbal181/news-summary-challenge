@@ -16,6 +16,7 @@ class NewsClient {
           image: article.fields ? article.fields.thumbnail : null
         };
       });
+      console.log(articles);
       return articles;
     } catch (error) {
       throw new Error(`Error loading data from API: ${error.message}`);
