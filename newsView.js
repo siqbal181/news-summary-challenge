@@ -15,25 +15,27 @@ class NewsView {
     const allArticles = this.model.getArticles();
     allArticles.forEach(article => {
       const articleEl = document.createElement('div');
-      articleEl.className = 'article';
+      articleEl.className = 'article-title';
       articleEl.textContent = article;
       articleEl.innerText = article.title;
       this.imageElement(article);
+      this.urlElement(article);
       this.mainContainerEl.append(articleEl);
     })
   }
 
   imageElement(article) {
     const articleImg = document.createElement('img');
+    articleImg.className = 'article-image';
     articleImg.src = article.image;
-    articleImg.alt = 'Image of news article';
+    articleImg.alt = article.title;
     this.mainContainerEl.append(articleImg);
   }
 
   urlElement(article) {
     const articleUrl = document.createElement('a');
     articleUrl.href = article.url
-    articlarticle.Url.textContent = 'News Article URL';
+    articleUrl.textContent = 'Link To Story';
     this.mainContainerEl.append(articleUrl);
   }
 
