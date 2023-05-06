@@ -57,10 +57,30 @@
     }
   });
 
+  // newsView.js
+  var require_newsView = __commonJS({
+    "newsView.js"(exports, module) {
+      var NewsView2 = class {
+        constructor(model2, client2) {
+          this.model = model2, this.client = client2, this.mainContainerEl = document.querySelector("#main-container");
+        }
+        async loadArticles() {
+          const data = await this.client.loadData();
+          this.model.setArticles(data);
+          console.log(data);
+        }
+      };
+      module.exports = NewsView2;
+    }
+  });
+
   // index.js
   var NewsClient = require_newsClient();
   var NewsModel = require_newsModel();
+  var NewsView = require_newsView();
   console.log("The news app is running");
   var client = new NewsClient();
+  var model = new NewsModel();
+  var view = new NewsView();
   console.log(client.loadData());
 })();

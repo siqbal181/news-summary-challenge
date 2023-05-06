@@ -5,9 +5,10 @@ class NewsView {
     this.mainContainerEl = document.querySelector('#main-container');
   }
 
-  async displayArticles() {
-    // const data = await this.client.loadData();
-    // console.log(data)
+  async loadArticles() {
+    const data = await this.client.loadData();
+    this.model.setArticles(data);
+    console.log(data)
   }
 
 }

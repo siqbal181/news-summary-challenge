@@ -16,11 +16,36 @@ describe('News View', () => {
     fetchMock.resetMocks();
     NewsClient.mockClear();
     document.body.innerHTML = fs.readFileSync('./index.html');
-    view = new NewsView();
   })
 
-  it('shows the news pages from API', () => {
-    view.displayArticles();
+  it('shows the news pages from API', async () => {
+    const model = new NewsModel();
+    const mockClient = {
+      loadData: jest.fn()
+    };
 
+    mockClient.loadData.mockResolvedValueOnce({
+      response: {
+        results: [
+          {
+            webTitle: "County cricket",
+            webUrl: "https://www.theguardian.com/sport/live/2023",
+            fields: {
+              thumbnail: "img.jpg"
+            }
+          },
+          {
+            webTitle: "Home Decor",
+            webUrl: "https://www.theguardian.com/home/decor/2023",
+            fields: {
+              thumbnail: "home.jpg"
+            }
+          }
+        ]
+      }
+    });
+
+    const view = new NewsView(model, mockClient);
+    await view.loadArticles();
   })
 })
