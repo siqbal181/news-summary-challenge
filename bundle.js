@@ -16,10 +16,9 @@
     "newsClient.js"(exports, module) {
       var apiKey = require_config();
       var NewsClient2 = class {
-        async loadData() {
-          let searchTerm;
+        async loadData(searchTerm = null) {
           if (searchTerm === "") {
-            searchTerm = "news";
+            searchTerm = "&query-fields";
           }
           try {
             const response = await fetch(`https://content.guardianapis.com/search?q=${searchTerm}&api-key=${apiKey}&show-fields=thumbnail`);
@@ -71,6 +70,15 @@
         constructor(model2, client2) {
           this.model = model2, this.client = client2, this.articleContainerEl = document.querySelector("#articles-container");
           this.mainContainerEl = document.querySelector("#main-container");
+          this.searchButtonEl = document.querySelector("#search-button");
+        }
+        searchArticle() {
+          this.searchButtonEl.addEventListener("click", async () => {
+            const searchInput = document.querySelector("#search-bar").value;
+            const data = await this.client.loadData(searchInput);
+            this.model.setArticles(data.response.results);
+            this.displayArticles();
+          });
         }
         async loadArticles() {
           const data = await this.client.loadData();
@@ -95,8 +103,13 @@
         imageElement(article) {
           const articleImg = document.createElement("img");
           articleImg.className = "article-image";
-          articleImg.src = article.image;
-          articleImg.alt = article.title;
+          if (article.image !== void 0) {
+            articleImg.src = article.image;
+            articleImg.alt = article.title;
+          } else {
+            articleImg.src = "https://via.placeholder.com/150x150.png?text=No+image+available";
+            articleImg.alt = "No image available";
+          }
           this.articleContainerEl.append(articleImg);
         }
         urlElement(article) {

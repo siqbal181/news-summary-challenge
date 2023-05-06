@@ -1,10 +1,9 @@
 const apiKey = require('./config.js');
 
 class NewsClient {
-  async loadData() {
-    let searchTerm;
+  async loadData(searchTerm = null) {
     if (searchTerm === '') {
-      searchTerm = 'news';
+      searchTerm = '&query-fields';
     }
     try {
       const response = await fetch(`https://content.guardianapis.com/search?q=${searchTerm}&api-key=${apiKey}&show-fields=thumbnail`);

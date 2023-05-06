@@ -18,7 +18,7 @@ describe('News View', () => {
     document.body.innerHTML = fs.readFileSync('./index.html');
   })
 
-  test.only('shows the news pages from API', async () => {
+  test('shows the news pages from API', async () => {
     const model = new NewsModel();
     const mockClient = {
       loadData: jest.fn()
@@ -50,4 +50,13 @@ describe('News View', () => {
     const divs = document.querySelectorAll('p.article-title');
     expect(divs.length).toEqual(2);
   });
+
+  test('it returns listings for specific search term', () => {
+    const model = new NewsModel();
+    const mockClient = {
+      loadData: jest.fn()
+    };
+
+    const view = new NewsView(model, mockClient);
+  })
 })
