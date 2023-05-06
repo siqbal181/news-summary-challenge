@@ -2,7 +2,7 @@ class NewsView {
   constructor(model, client) {
     this.model = model,
     this.client = client,
-    this.mainContainerEl = document.querySelector('#main-container');
+    this.mainContainerEl = document.querySelector('#articles-container');
   }
 
   async loadArticles() {
@@ -14,14 +14,18 @@ class NewsView {
   displayArticles() {
     const allArticles = this.model.getArticles();
     allArticles.forEach(article => {
-      const articleEl = document.createElement('div');
-      articleEl.className = 'article-title';
-      articleEl.textContent = article;
-      articleEl.innerText = article.title;
+      this.titleElement(article);
       this.imageElement(article);
       this.urlElement(article);
-      this.mainContainerEl.append(articleEl);
     })
+  }
+
+  titleElement(article) {
+    const articleEl = document.createElement('div');
+    articleEl.className = 'article-title';
+    articleEl.textContent = article;
+    articleEl.innerText = article.title;
+    this.mainContainerEl.append(articleEl);
   }
 
   imageElement(article) {
