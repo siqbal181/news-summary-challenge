@@ -1,10 +1,13 @@
 const apiKey = require('./config.js');
-const apiUrl = `https://content.guardianapis.com/search?api-key=${apiKey}&show-fields=thumbnail`;
 
 class NewsClient {
   async loadData() {
+    let searchTerm;
+    if (searchTerm === '') {
+      searchTerm = 'news';
+    }
     try {
-      const response = await fetch(apiUrl);
+      const response = await fetch(`https://content.guardianapis.com/search?q=${searchTerm}&api-key=${apiKey}&show-fields=thumbnail`);
       if (!response.ok) {
         throw new Error(`API request failed with status code ${response.status}`);
       }

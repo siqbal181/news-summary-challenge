@@ -49,5 +49,5 @@ describe('News View', () => {
     await view.loadArticles();
     const divs = document.querySelectorAll('p.article-title');
     expect(divs.length).toEqual(2);
-  })
+  });
 })
