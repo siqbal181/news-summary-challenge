@@ -62,5 +62,5 @@
   var NewsModel = require_newsModel();
   console.log("The news app is running");
   var client = new NewsClient();
-  client.loadData();
+  console.log(client.loadData());
 })();

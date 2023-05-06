@@ -14,11 +14,13 @@ const NewsModel = require('./newsModel');
 describe('News View', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
-    NotesClient.mockClear();
+    NewsClient.mockClear();
     document.body.innerHTML = fs.readFileSync('./index.html');
+    view = new NewsView();
   })
 
   it('shows the news pages from API', () => {
+    view.displayArticles();
 
   })
 })
