@@ -8,20 +8,29 @@ describe('NewsClient', () => {
     fetch.resetMocks();
   });
 
-  it('loads data from API and returns expected response', async () => {
+  test('loads data from API and returns expected response', async () => {
     const client = new NewsClient();
-
+  
     fetch.mockResponseOnce(JSON.stringify({
-      webTitle: "County cricket",
-      webUrl: "https://www.theguardian.com/sport/live/2023",
-      thumbnail: "img.jpg"
+      response: {
+        results: [
+          {
+            webTitle: "County cricket",
+            webUrl: "https://www.theguardian.com/sport/live/2023",
+            fields: {
+              thumbnail: "img.jpg"
+            }
+          }
+        ]
+      }
     }));
-
+  
     const result = await client.loadData();
-    expect(result.webTitle).toBe("County cricket");
-    expect(result.webUrl).toBe("https://www.theguardian.com/sport/live/2023");
-    expect(result.thumbnail).toBe("img.jpg");
-  });
+    expect(result).toHaveLength(1);
+    expect(result[0].title).toBe("County cricket");
+    expect(result[0].url).toBe("https://www.theguardian.com/sport/live/2023");
+    expect(result[0].image).toBe("img.jpg");
+  });  
 
   it('handles errors from API', async () => {
     const client = new NewsClient();
