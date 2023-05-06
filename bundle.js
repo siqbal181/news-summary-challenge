@@ -133,4 +133,5 @@
   var view = new NewsView(model, client);
   console.log(client.loadData());
   view.loadArticles();
+  view.searchArticle();
 })();

@@ -51,12 +51,46 @@ describe('News View', () => {
     expect(divs.length).toEqual(2);
   });
 
-  test('it returns listings for specific search term', () => {
+  test('it returns listings for specific search term', async () => {
     const model = new NewsModel();
     const mockClient = {
       loadData: jest.fn()
     };
 
+    mockClient.loadData.mockResolvedValueOnce({
+      response: {
+        results: [
+          {
+            webTitle: "Football news 1",
+            webUrl: "https://www.theguardian.com/football/1",
+            fields: {
+              thumbnail: "img1.jpg"
+            }
+          },
+          {
+            webTitle: "Football news 2",
+            webUrl: "https://www.theguardian.com/football/2",
+            fields: {
+              thumbnail: "img2.jpg"
+            }
+          }
+        ]
+      }
+    });  
+
     const view = new NewsView(model, mockClient);
+
+    const searchInput = document.querySelector('#search-bar');
+    console.log(document.querySelector('#search-bar'));
+    searchInput.value = 'football';
+    const searchButton = document.querySelector('#search-button');
+    searchButton.dispatchEvent(new Event('click'));
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    const divs = document.querySelectorAll('p.article-title');
+    expect(divs.length).toEqual(2);
+    expect(divs[0].textContent).toEqual('Football news 1');
+    expect(divs[0].textContent).toEqual('Football news 2');
+
   })
 })
