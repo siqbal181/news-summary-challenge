@@ -14,7 +14,7 @@ class NewsClient {
         url: article.webUrl,
         image: article.fields?.thumbnail
       }))
-      return articles;
+      return { response: {results: articles} };
     } catch (error) {
       throw new Error(`Error loading data from API: ${error.message}`);
     }

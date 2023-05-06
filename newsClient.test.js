@@ -26,10 +26,10 @@ describe('NewsClient', () => {
     }));
   
     const result = await client.loadData();
-    expect(result).toHaveLength(1);
-    expect(result[0].title).toBe("County cricket");
-    expect(result[0].url).toBe("https://www.theguardian.com/sport/live/2023");
-    expect(result[0].image).toBe("img.jpg");
+    expect(result.response.results).toHaveLength(1);
+    expect(result.response.results[0].title).toBe("County cricket");
+    expect(result.response.results[0].url).toBe("https://www.theguardian.com/sport/live/2023");
+    expect(result.response.results[0].image).toBe("img.jpg");
   });  
 
   it('handles errors from API', async () => {

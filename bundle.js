@@ -29,7 +29,7 @@
               url: article.webUrl,
               image: article.fields?.thumbnail
             }));
-            return articles;
+            return { response: { results: articles } };
           } catch (error) {
             throw new Error(`Error loading data from API: ${error.message}`);
           }
@@ -46,8 +46,12 @@
         constructor() {
           this.articles = [];
         }
-        setArticles(articles) {
-          this.articles = articles;
+        setArticles(data) {
+          if (Array.isArray(data)) {
+            this.articles = data;
+          } else {
+            this.articles = data.response.results;
+          }
         }
         getArticles() {
           return this.articles;
@@ -66,8 +70,18 @@
         }
         async loadArticles() {
           const data = await this.client.loadData();
-          this.model.setArticles(data);
-          console.log(data);
+          this.model.setArticles(data.response.results);
+          this.displayArticles();
+        }
+        displayArticles() {
+          const allArticles = this.model.getArticles();
+          allArticles.forEach((article) => {
+            const articleEl = document.createElement("div");
+            articleEl.className = "article";
+            articleEl.textContent = article;
+            articleEl.innerText = article.innerText;
+            this.mainContainerEl.append(articleEl);
+          });
         }
       };
       module.exports = NewsView2;
@@ -81,6 +95,7 @@
   console.log("The news app is running");
   var client = new NewsClient();
   var model = new NewsModel();
-  var view = new NewsView();
+  var view = new NewsView(model, client);
   console.log(client.loadData());
+  view.loadArticles();
 })();
