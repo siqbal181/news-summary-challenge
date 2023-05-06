@@ -5,6 +5,7 @@ class NewsView {
     this.articleContainerEl = document.querySelector('#articles-container');
     this.mainContainerEl = document.querySelector('#main-container');
     this.searchButtonEl = document.querySelector('#search-button');
+    this.searchArticle();
   }
 
   searchArticle() {
@@ -34,7 +35,7 @@ class NewsView {
   titleElement(article) {
     const articleEl = document.createElement('p');
     articleEl.className = 'article-title';
-    articleEl.textContent = article;
+    articleEl.textContent = article.title;
     articleEl.innerText = article.title;
     this.articleContainerEl.append(articleEl);
   }
