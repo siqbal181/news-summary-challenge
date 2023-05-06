@@ -47,8 +47,7 @@ describe('News View', () => {
 
     const view = new NewsView(model, mockClient);
     await view.loadArticles();
-    const divs = document.querySelectorAll('div.article');
-
+    const divs = document.querySelectorAll('p.article-title');
     expect(divs.length).toEqual(2);
   })
 })

@@ -2,7 +2,8 @@ class NewsView {
   constructor(model, client) {
     this.model = model,
     this.client = client,
-    this.mainContainerEl = document.querySelector('#articles-container');
+    this.articleContainerEl = document.querySelector('#articles-container');
+    this.mainContainerEl = document.querySelector('#main-container');
   }
 
   async loadArticles() {
@@ -21,11 +22,11 @@ class NewsView {
   }
 
   titleElement(article) {
-    const articleEl = document.createElement('div');
+    const articleEl = document.createElement('p');
     articleEl.className = 'article-title';
     articleEl.textContent = article;
     articleEl.innerText = article.title;
-    this.mainContainerEl.append(articleEl);
+    this.articleContainerEl.append(articleEl);
   }
 
   imageElement(article) {
@@ -33,14 +34,14 @@ class NewsView {
     articleImg.className = 'article-image';
     articleImg.src = article.image;
     articleImg.alt = article.title;
-    this.mainContainerEl.append(articleImg);
+    this.articleContainerEl.append(articleImg);
   }
 
   urlElement(article) {
     const articleUrl = document.createElement('a');
     articleUrl.href = article.url
     articleUrl.textContent = 'Link To Story';
-    this.mainContainerEl.append(articleUrl);
+    this.articleContainerEl.append(articleUrl);
   }
 
 }

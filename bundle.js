@@ -66,7 +66,8 @@
     "newsView.js"(exports, module) {
       var NewsView2 = class {
         constructor(model2, client2) {
-          this.model = model2, this.client = client2, this.mainContainerEl = document.querySelector("#articles-container");
+          this.model = model2, this.client = client2, this.articleContainerEl = document.querySelector("#articles-container");
+          this.mainContainerEl = document.querySelector("#main-container");
         }
         async loadArticles() {
           const data = await this.client.loadData();
@@ -82,24 +83,24 @@
           });
         }
         titleElement(article) {
-          const articleEl = document.createElement("div");
+          const articleEl = document.createElement("p");
           articleEl.className = "article-title";
           articleEl.textContent = article;
           articleEl.innerText = article.title;
-          this.mainContainerEl.append(articleEl);
+          this.articleContainerEl.append(articleEl);
         }
         imageElement(article) {
           const articleImg = document.createElement("img");
           articleImg.className = "article-image";
           articleImg.src = article.image;
           articleImg.alt = article.title;
-          this.mainContainerEl.append(articleImg);
+          this.articleContainerEl.append(articleImg);
         }
         urlElement(article) {
           const articleUrl = document.createElement("a");
           articleUrl.href = article.url;
           articleUrl.textContent = "Link To Story";
-          this.mainContainerEl.append(articleUrl);
+          this.articleContainerEl.append(articleUrl);
         }
       };
       module.exports = NewsView2;
