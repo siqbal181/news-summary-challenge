@@ -78,6 +78,7 @@
             const searchInput = document.querySelector("#search-bar").value;
             const data = await this.client.loadData(searchInput);
             this.model.setArticles(data.response.results);
+            this.articleContainerEl.innerHTML = "";
             this.displayArticles();
           });
         }
@@ -98,7 +99,6 @@
           const articleEl = document.createElement("p");
           articleEl.className = "article-title";
           articleEl.textContent = article.title;
-          articleEl.innerText = article.title;
           this.articleContainerEl.append(articleEl);
         }
         imageElement(article) {
@@ -133,6 +133,5 @@
   var model = new NewsModel();
   var view = new NewsView(model, client);
   console.log(client.loadData());
-  view.loadArticles();
   view.searchArticle();
 })();

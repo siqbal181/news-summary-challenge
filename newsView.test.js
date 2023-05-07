@@ -51,7 +51,7 @@ describe('News View', () => {
     expect(divs.length).toEqual(2);
   });
 
-  test('it returns listings for specific search term', async () => {
+  test.only('it returns listings for specific search term', async () => {
     const model = new NewsModel();
     const mockClient = {
       loadData: jest.fn()
@@ -88,8 +88,9 @@ describe('News View', () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     const divs = document.querySelectorAll('p.article-title');
     expect(divs.length).toEqual(2);
-    // expect(divs[0].textContent).toEqual('Football news 1');
-    // expect(divs[0].textContent).toEqual('Football news 2');
+    console.log(divs[0]);
+    expect(divs[0].textContent).toEqual('Football news 1');
+    expect(divs[0].textContent).toEqual('Football news 2');
 
   })
 })
